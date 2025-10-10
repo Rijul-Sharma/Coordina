@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Dependency directories
+jspm_packages/
+
+# dotenv environment variables file
+.env
+
+# Build output
+/dist
+/build
+
+# npm package lock files
+package-lock.json
+yarn.lock
+
+# IDE / editor folders
+.vscode/
+.idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional: Coverage directory for testing tools
+coverage/
+
+# Optional: Debugging files
+*.tgz
+
+.DS_Store
