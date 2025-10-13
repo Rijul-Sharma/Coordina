@@ -1,6 +1,6 @@
 import Project from "../models/project.js";
 
-// Create a new project
+
 export const createProject = async (req, res) => {
   try {
     const project = new Project(req.body);
@@ -11,7 +11,7 @@ export const createProject = async (req, res) => {
   }
 };
 
-// Get all projects
+
 export const getProjects = async (req, res) => {
   try {
     const projects = await Project.find();
@@ -21,7 +21,7 @@ export const getProjects = async (req, res) => {
   }
 };
 
-// Get a single project by ID
+
 export const getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -35,7 +35,7 @@ export const getProjectById = async (req, res) => {
   }
 };
 
-// Update project details
+
 export const updateProject = async (req, res) => {
   try {
     const { projectId } = req.params;
@@ -46,7 +46,7 @@ export const updateProject = async (req, res) => {
   }
 };
 
-// Delete a project
+
 export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;

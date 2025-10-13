@@ -2,14 +2,14 @@ import Task from "../models/task.js";
 import Project from "../models/project.js";
 import Employee from "../models/employee.js";
 
-// Create a new task
+
 export const createTask = async (req, res) => {
   try {
     const { projectId, ...taskData } = req.body;
     const task = new Task(taskData);
     await task.save();
 
-    // Add task to project
+
     await Project.findByIdAndUpdate(projectId, {
       $push: { tasks: task._id },
     });
@@ -20,7 +20,7 @@ export const createTask = async (req, res) => {
   }
 };
 
-// Assign employees to a task
+
 export const assignEmployeesToTask = async (req, res) => {
   try {
     const { taskId } = req.params;
@@ -32,7 +32,7 @@ export const assignEmployeesToTask = async (req, res) => {
       { new: true }
     );
 
-    // Update each employee's assignedTasks
+
     await Employee.updateMany(
       { _id: { $in: employeeIds } },
       { $push: { assignedTasks: { taskId } } }
@@ -44,7 +44,7 @@ export const assignEmployeesToTask = async (req, res) => {
   }
 };
 
-// Get a single task by ID
+
 export const getTaskById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,7 +58,7 @@ export const getTaskById = async (req, res) => {
   }
 };
 
-// Update a task
+
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
@@ -72,7 +72,7 @@ export const updateTask = async (req, res) => {
   }
 };
 
-// Delete a task
+
 export const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;

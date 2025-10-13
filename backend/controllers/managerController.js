@@ -1,14 +1,13 @@
 import Manager from "../models/manager.js";
 import Project from "../models/project.js";
 
-// Create a new project
+
 export const createProject = async (req, res) => {
   try {
     const { managerId, ...projectData } = req.body;
     const project = new Project({ ...projectData, createdBy: managerId });
     await project.save();
 
-    // Update manager's managedProjects
     await Manager.findByIdAndUpdate(managerId, {
       $push: { managedProjects: { projectId: project._id } },
     });
@@ -19,7 +18,7 @@ export const createProject = async (req, res) => {
   }
 };
 
-// Get all projects managed by a manager
+
 export const getManagerProjects = async (req, res) => {
   try {
     const { managerId } = req.params;
@@ -30,7 +29,7 @@ export const getManagerProjects = async (req, res) => {
   }
 };
 
-// Get a single manager by ID
+
 export const getManagerById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,7 +43,7 @@ export const getManagerById = async (req, res) => {
   }
 };
 
-// Update a manager
+
 export const updateManager = async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,7 +57,7 @@ export const updateManager = async (req, res) => {
   }
 };
 
-// Delete a manager
+
 export const deleteManager = async (req, res) => {
   try {
     const { id } = req.params;
