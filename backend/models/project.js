@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import taskSchema from "./task.model.js";
+import taskSchema from "./task.js";
 import employeeSchema from "./employee.js"
 
 const projectSchema = new mongoose.Schema(
@@ -20,8 +20,8 @@ const projectSchema = new mongoose.Schema(
     endDate: Date,
     deadline: Date,
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Employee" },
-    tasks: [taskSchema],
-    employees: [employeeSchema]
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+    employees: [{ type: mongoose.Schema.Types.ObjectId, ref: "Employee" }]
   },
   { timestamps: true }
 );

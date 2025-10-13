@@ -5,7 +5,7 @@ const managerSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     contact: String,
-    department: String,
+    // department: String,
     // role: { type: String, default: "Manager" },
     managedProjects: [
       {
