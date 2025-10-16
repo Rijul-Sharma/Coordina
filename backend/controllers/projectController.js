@@ -59,3 +59,34 @@ export const deleteProject = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+export const getProjectTasks = async (req, res) => {
+  try {
+    const { id } = req.params;
+  
+    const project = await Project.findById(id).populate({
+      path: 'tasks',
+      select: 'title description dueDate startDate priority assignees'
+    });
+
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+
+    const tasks = (project.tasks || []).map((t) => ({
+      id: t._id,
+      title: t.title,
+      description : t.description,
+      deadline: t.dueDate,
+      startDate: t.startDate,
+      priority: t.priority,
+      employeeNum: Array.isArray(t.assignees) ? t.assignees.length : 0,
+    }));
+
+    res.status(200).json({ projectId: project._id, tasks });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -5,18 +5,29 @@ import Employee from "../models/employee.js";
 
 export const createTask = async (req, res) => {
   try {
-    const { projectId, ...taskData } = req.body;
-    const task = new Task(taskData);
-    await task.save();
+    const { projectId, startDate, status, ...taskData } = req.body;
+    if (!projectId) return res.status(400).json({ message: 'projectId is required' });
 
+    const taskPayload = {
+      ...taskData,
+      projectId,
+      startDate: startDate || Date.now(),
+      status: status || 'In Progress'
+    }
 
-    await Project.findByIdAndUpdate(projectId, {
-      $push: { tasks: task._id },
-    });
+    const task = new Task(taskPayload)
+    await task.save()
 
-    res.status(201).json(task);
+    const updated = await Project.findByIdAndUpdate(projectId, { $push: { tasks: task._id } })
+    if (!updated) {
+      // cleanup
+      await Task.findByIdAndDelete(task._id).catch(() => {})
+      return res.status(404).json({ message: 'Project not found' })
+    }
+
+    res.status(201).json(task)
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
 };
 

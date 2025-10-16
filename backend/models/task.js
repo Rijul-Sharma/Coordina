@@ -10,10 +10,10 @@ const taskSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["To Do", "In Progress", "Completed"],
-    default: "To Do"
+    enum: ["In Progress", "Awaiting Approval", "Completed"],
+    default: "In Progress"
   },
-  startDate: Date,
+  startDate: { type: Date, default: Date.now },
   dueDate: Date,
   assignees: [
     {

@@ -9,7 +9,7 @@ const employeeSchema = new mongoose.Schema(
     skills: [String],
     department : String,
     // availability: { type: Number, default: 1.0 }, // 1.0 = fully available
-    isActive: { type: Boolean, default: true },
+    // isActive: { type: Boolean, default: true },
     assignedTasks: [
       {
         projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Task" },
