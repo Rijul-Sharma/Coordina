@@ -5,7 +5,6 @@ const employeeSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     contact: String,
-    // position: { type: String, default: "Employee" },
     skills: [String],
     department : String,
     // availability: { type: Number, default: 1.0 }, // 1.0 = fully available

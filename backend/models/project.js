@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-import taskSchema from "./task.js";
-import employeeSchema from "./employee.js"
+import Task from "./task.js";
+import Employee from "./employee.js";
+import Manager from "./manager.js";
 
-const projectSchema = new mongoose.Schema(
+const projectSchema = mongoose.Schema(
   {
     title: { type: String, required: true },
     description: String,
@@ -14,14 +15,20 @@ const projectSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["Planning", "Development", "Testing", "Deployment", "Completed"],
-      default: "Planning"
+      default: "Planning",
     },
-    startDate: Date,
+    startDate: {
+      type: Date,
+      required: true
+    },
     endDate: Date,
-    deadline: Date,
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Employee" },
-    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
-    employees: [{ type: mongoose.Schema.Types.ObjectId, ref: "Employee" }]
+    deadline: {
+      type: Date,
+      required: true
+    },
+    tasks: [{type: mongoose.Schema.Types.ObjectId, ref: "Task"}],
+    employees: [{type: mongoose.Schema.Types.ObjectId, ref: "Employee"}],
+    managedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Manager" },
   },
   { timestamps: true }
 );

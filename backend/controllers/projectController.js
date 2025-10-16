@@ -3,10 +3,26 @@ import Project from "../models/project.js";
 
 export const createProject = async (req, res) => {
   try {
-    const project = new Project(req.body);
+    // console.log(":P", req.body);
+    
+    const project = new Project({
+      title: req.body.title,
+      description: req.body.description,
+      priority: req.body.priority,
+      status: req.body.status,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      deadline: req.body.deadline,
+      createdBy: req.body.createdBy,
+      tasks: req.body.tasks,
+      employees: req.body.employees
+    });
     await project.save();
+    
+    // console.log("this one:", req.body);
     res.status(201).json(project);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -38,7 +54,8 @@ export const getProjectById = async (req, res) => {
 
 export const updateProject = async (req, res) => {
   try {
-    const { projectId } = req.params;
+
+    const  projectId = req.body.id;
     const updatedProject = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
     res.status(200).json(updatedProject);
   } catch (error) {

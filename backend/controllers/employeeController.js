@@ -1,5 +1,15 @@
 import Employee from "../models/employee.js";
 
+export const getEmployeeByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const employee = await Employee.findOne({ email });
+    res.status(200).json([{ employee }, { exists: !!employee }]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const createEmployee = async (req, res) => {
   try {
     const employee = new Employee(req.body);

@@ -1,5 +1,17 @@
+// Check manager by email
 import Manager from "../models/manager.js";
 import Project from "../models/project.js";
+
+export const getManagerByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const manager = await Manager.findOne({ email });
+    res.status(200).json({ exists: !!manager });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 
 export const createProject = async (req, res) => {
